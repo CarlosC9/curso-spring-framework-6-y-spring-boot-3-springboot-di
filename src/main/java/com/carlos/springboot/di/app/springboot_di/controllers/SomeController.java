@@ -17,13 +17,13 @@ public class SomeController {
 
   @GetMapping
   public List<Product> list() {
-    return service.findAll();
+    return this.service.findAll();
   }
 
   @GetMapping("/{id}")
   public Product show(
     @PathVariable Long id
   ) {
-    return service.findById(id);
+    return this.service.findById(id);
   }
 }

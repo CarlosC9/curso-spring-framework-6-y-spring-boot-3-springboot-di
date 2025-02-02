@@ -12,9 +12,9 @@ public class ProductService {
 
   public List<Product> findAll() {
     return repository.findAll().stream()
-      .peek(p -> {
+      .map(p -> {
         double priceImp = p.getPrice() * 1.25d;
-        p.setPrice((long) priceImp);
+        return new Product(p.getId(), p.getName(), (long) priceImp);
       }).collect(Collectors.toList());
   }
 
