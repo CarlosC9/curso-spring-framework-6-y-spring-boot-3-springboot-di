@@ -18,7 +18,7 @@ public class ProductService {
       }).collect(Collectors.toList());
   }
 
-  public Product fundById(Long id) {
+  public Product findById(Long id) {
 
     return repository.findById(id);
   }
