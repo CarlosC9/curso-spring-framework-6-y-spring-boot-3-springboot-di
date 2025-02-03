@@ -17,9 +17,17 @@ public class ProductRepositoryJson implements ProductRepository {
 
   public ProductRepositoryJson() {
     Resource resource = new ClassPathResource("json/product.json");
+    this.readValueJson(resource);
+  }
+
+  public ProductRepositoryJson(Resource resource) {
+    this.readValueJson(resource);
+  }
+
+  private void readValueJson(Resource resource) {
     ObjectMapper objectMapper = new ObjectMapper();
     try {
-      list = Arrays.asList(objectMapper.readValue(resource.getFile(), Product[].class));
+      this.list = Arrays.asList(objectMapper.readValue(resource.getInputStream(), Product[].class));
     } catch (IOException e) {
       e.printStackTrace();
     }
