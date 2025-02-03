@@ -2,8 +2,6 @@ package com.carlos.springboot.di.app.springboot_di.repositories;
 
 import com.carlos.springboot.di.app.springboot_di.models.Product;
 
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.core.io.ClassPathResource;
@@ -29,11 +27,14 @@ public class ProductRepositoryJson implements ProductRepository {
 
   @Override
   public List<Product> findAll() {
-    return null;
+    return this.list;
   }
 
   @Override
   public Product findById(Long id) {
-    return null;
+    return list.stream()
+      .filter(p -> p.getId().equals(id))
+      .findFirst()
+      .orElseThrow();
   }
 }
