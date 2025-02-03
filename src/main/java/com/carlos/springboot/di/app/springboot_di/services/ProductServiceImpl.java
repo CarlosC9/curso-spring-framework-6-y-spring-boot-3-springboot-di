@@ -4,6 +4,7 @@ import com.carlos.springboot.di.app.springboot_di.models.Product;
 import com.carlos.springboot.di.app.springboot_di.repositories.ProductRepository;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,26 +15,34 @@ public class ProductServiceImpl implements ProductService {
 
   private ProductRepository repository;
 
+  private double tax;
+
   public ProductServiceImpl(
-    @Qualifier("productList") ProductRepository repository
+    @Qualifier("productList") ProductRepository repository,
+    @Value("${config.price.tax}") double tax
   ) {
     this.repository = repository;
+    this.tax = tax;
   }
 
   @Override
   public List<Product> findAll() {
     return repository.findAll().stream()
       .map(p -> {
+        double priceTax = p.getPrice() * tax;
+
         Product newProd = (Product) p.clone();
-        double priceTax = p.getPrice() * 1.25d;
         newProd.setPrice((long) priceTax);
         return newProd;
+
+//        p.setPrice((long) priceTax);
+//        return p;
+
       }).collect(Collectors.toList());
   }
 
   @Override
   public Product findById(Long id) {
-
     return repository.findById(id);
   }
 
