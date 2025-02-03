@@ -3,7 +3,7 @@ package com.carlos.springboot.di.app.springboot_di.services;
 import com.carlos.springboot.di.app.springboot_di.models.Product;
 import com.carlos.springboot.di.app.springboot_di.repositories.ProductRepository;
 
-import org.springframework.context.annotation.Primary;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +14,9 @@ public class ProductServiceImpl implements ProductService {
 
   private ProductRepository repository;
 
-  public ProductServiceImpl(ProductRepository repository) {
+  public ProductServiceImpl(
+    @Qualifier("productFoo") ProductRepository repository
+  ) {
     this.repository = repository;
   }
 

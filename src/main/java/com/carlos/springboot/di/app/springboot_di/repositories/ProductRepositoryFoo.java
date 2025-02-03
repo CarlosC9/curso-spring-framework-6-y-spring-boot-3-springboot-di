@@ -1,13 +1,12 @@
 package com.carlos.springboot.di.app.springboot_di.repositories;
 
 import com.carlos.springboot.di.app.springboot_di.models.Product;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
 import java.util.List;
 
-@Repository
+@Repository("productFoo")
 public class ProductRepositoryFoo implements ProductRepository {
 
   @Override
